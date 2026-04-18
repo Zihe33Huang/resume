@@ -1,6 +1,18 @@
 import jsPDF from 'jspdf'
 
-export function downloadResumePdf(profile, skills, experiences, projects) {
+export function downloadResumePdf(profile, skills, experiences, projects, language = 'en') {
+  const labels =
+    language === 'zh'
+      ? {
+          workExperience: 'Work Experience',
+          coreSkills: 'Core Skills',
+          selectedProjects: 'Selected Projects',
+        }
+      : {
+          workExperience: 'Work Experience',
+          coreSkills: 'Core Skills',
+          selectedProjects: 'Selected Projects',
+        }
   const doc = new jsPDF()
   const margin = 18
   let y = 20
@@ -21,7 +33,7 @@ export function downloadResumePdf(profile, skills, experiences, projects) {
 
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(14)
-  writeLine('Work Experience', 8)
+  writeLine(labels.workExperience, 8)
   doc.setFontSize(11)
   doc.setFont('helvetica', 'normal')
   experiences.forEach((item) => {
@@ -33,14 +45,14 @@ export function downloadResumePdf(profile, skills, experiences, projects) {
 
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(14)
-  writeLine('Core Skills', 8)
+  writeLine(labels.coreSkills, 8)
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(11)
   writeLine(skills.map((skill) => `${skill.name} (${skill.level}%)`).join(' | '), 10)
 
   doc.setFont('helvetica', 'bold')
   doc.setFontSize(14)
-  writeLine('Selected Projects', 8)
+  writeLine(labels.selectedProjects, 8)
   doc.setFont('helvetica', 'normal')
   doc.setFontSize(11)
   projects.slice(0, 3).forEach((project) => {

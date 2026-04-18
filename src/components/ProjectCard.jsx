@@ -1,6 +1,6 @@
 import { motion as Motion } from 'framer-motion'
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, liveDemoLabel }) {
   return (
     <Motion.article
       className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl transition-transform"
@@ -29,7 +29,7 @@ function ProjectCard({ project, index }) {
           rel="noreferrer"
           className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-slateNight transition hover:bg-white/90"
         >
-          Live Demo
+          {liveDemoLabel}
         </a>
         <a
           href={project.github}
